@@ -1,0 +1,160 @@
+# Multi Vendor Inventory API
+
+A backend service built with **FastAPI** and **MongoDB** that manages stock items, vendors, and purchase orders.
+The system supports linking multiple vendors to stock items and ensures that purchase orders can only be created with approved vendors.
+
+---
+
+## Features
+
+* Stock Item Management (CRUD)
+* Vendor Management (CRUD)
+* Item ↔ Vendor relationship (Many-to-Many)
+* Purchase Order creation with validation
+* Async MongoDB operations
+* Clean service-layer architecture
+
+---
+
+## Tech Stack
+
+* **Python**
+* **FastAPI**
+* **MongoDB**
+* **Motor (Async Mongo Driver)**
+* **Uvicorn**
+
+---
+
+## Setup Instructions
+
+### 1. Clone the Repository
+
+```bash
+git clone <https://github.com/itzmevicky/inventory_management.git>
+cd inventory_management
+
+```
+
+---
+
+### 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+Activate it:
+
+**Windows**
+
+```bash
+venv\Scripts\activate
+```
+
+**Linux / Mac**
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+### 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+
+
+### 4. Run the FastAPI Server
+
+```bash
+uvicorn app.main:app --reload
+```
+
+---
+
+## Access the API
+
+Once the server starts, you can access:
+
+Interactive API Docs (Swagger):
+
+```
+http://127.0.0.1:8000/docs
+```
+---
+
+## API Overview
+
+### Items
+
+```
+POST   /items
+GET    /items
+GET    /items/{item_id}
+PATCH  /items/{item_id}
+DELETE /items/{item_id}
+```
+
+### Vendors
+
+```
+POST   /vendors
+GET    /vendors
+GET    /vendors/{vendor_id}
+PATCH  /vendors/{vendor_id}
+DELETE /vendors/{vendor_id}
+```
+
+### Item-Vendor Relationships
+
+```
+POST   /items/{item_id}/vendors/{vendor_id}
+GET    /items/{item_id}/vendors
+GET    /vendors/{vendor_id}/items
+DELETE /items/{item_id}/vendors/{vendor_id}
+```
+
+### Purchase Orders
+
+```
+POST   /purchase-orders
+GET    /purchase-orders
+GET    /purchase-orders/{po_id}
+```
+
+Purchase orders can only be created if the **vendor is linked to the item**.
+
+---
+
+## Project Structure
+
+```
+app/
+│
+├── routers/
+├── services/
+├── schemas/
+├── models/
+│
+├── db.py
+└── main.py
+
+```
+
+---
+
+## Running the Project
+
+After setup, simply run:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+The API will be available locally and ready to test using Swagger UI.
